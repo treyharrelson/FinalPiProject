@@ -35,8 +35,12 @@ class MainGUI(Frame):
               height = 1, width = 5, font = ("texgyreadventor-regular", 20)).place(x = 50, y = 400)
         
         b3 = Button(self.master, text = 'Next Workout', anchor = N, fg = "white", bg = "#9E6CA8", \
-              height = 1, width = 11, font = ("texgyreadventor-regular", 20)).place(x = 550, y = 10)
+              height = 1, width = 11, font = ("texgyreadventor-regular", 20)).place(x = 555, y = 10)
         
+        l1 = Label(self.master, text="Weight Lifted (lbs):", bd = 6, font = ("texgyreadventor-regular", 10)).place(x= 10, y = 10)
+        e1 = Entry(self.master, bd = 5, bg = 'white', font = 'Helvetica 14',  fg = 'black', width = 7, text = 'Weight Lifted',\
+                   justify = CENTER, textvariable = StringVar()).place(x = 140, y = 10)
+
     #     tt = Label(self.master, textvariable=MainGUI.timer, width = 8,  font = 'Helvetica 14').place(x=420, y=120)
         
 
@@ -58,10 +62,10 @@ class MainGUI(Frame):
 ######################## MAIN ###########################
 root = Tk()
 root.configure(bg="#749CBB")
+root.geometry("750x500")
 
 # generate the GUI
 p = MainGUI(root)
-root.geometry("750x500")
 
 # display the GUI and wait for user interaction
 root.mainloop()
