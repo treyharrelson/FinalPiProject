@@ -1,11 +1,5 @@
 import tkinter as tk
 
-'''
-Each Page clears the Weight Entry for new calculations
-on the new set.  People add and decrease weight.  Use
-standard deviation. Append Entry info to array?
-'''
-
 class App:
     def __init__(self, root=None):
         self.root = root
