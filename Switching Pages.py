@@ -2,6 +2,7 @@ import tkinter as tk
 import time
 from tkinter import messagebox
 from datetime import datetime
+# from stopwatch import run_stop_watch
 counter = 66600
 running = False
 
@@ -39,23 +40,25 @@ class Workout1:
                        font = ("texgyreadventor-regular", 20), command=self.make_page_2)
         b4.grid(row=0, column=2, padx=(0,10), sticky="")
         
-        timer = tk.Label(self.frame2, text = "00:00.00", fg = "black", bg = "white",
+        self.displayed_time = tk.StringVar()
+        timer = tk.Label(self.frame2, textvariable = self.displayed_time, fg = "black", bg = "white",
                          font = ("texgyreadventor-regular", 40))
+        self.displayed_time.set('00:00.00')
         timer.grid(row=1, column=0, columnspan=3, pady=(30,20), sticky="")
         
     # Frame 3 setup
         self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
         
         b1 = tk.Button(self.frame3, text = 'Play', fg = "white", bg = "#5B8C5D",
-                       font = ("texgyreadventor-regular", 50))
+                       font = ("texgyreadventor-regular", 50), command = self.run_stop_watch)
         b1.grid(row=0, column=0, padx=30, sticky="")
         
         b2 = tk.Button(self.frame3, text = 'Stop', fg = "white", bg = "#9C4B60",
-                       font = ("texgyreadventor-regular", 50))
+                       font = ("texgyreadventor-regular", 50), command = self.stop_stop_watch)
         b2.grid(row=0, column=1, padx=30, sticky="")
         
         b3 = tk.Button(self.frame3, text = 'Reset', fg = "white", bg = "#748CBB",
-                       font = ("texgyreadventor-regular", 20))
+                       font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
         b3.grid(row=1, column=1, pady=(30,10), sticky="")
 
         # pack each section then pack the frame as a whole
@@ -70,24 +73,30 @@ class Workout1:
         self.frame.pack_forget()
         self.page_2.start_page()
 
-    # timer = StringVar()
-    # timer.set('00:00.00')
-    #     tt = Label(self.master, textvariable=MainGUI.timer, width = 8,  font = 'Helvetica 14').place(x=420, y=120)
     
-    # # Define the function for the timer
-    # def stop_watch(self):
-    #     start_time = time.time()
-    #     running = True
-    #     while running:
-    #         elapsed_time = time.time() - start_time
-    #         minute, second = (elapsed_time // 60, elapsed_time % 60)
-    #         second = round(second, 2)
-    #         minute =  int(minute)
-    #         MainGUI.timer.set(f"{minute}:{second}")
+    # Define the function for the timer
+    def run_stop_watch(self):
+        start_time = time.time()
+        global running; running = True
 
-    #         # update the time
-    #         root.update()
-    #         time.sleep(.01)
+        while running:
+            elapsed_time = time.time() - start_time
+            minute, second = (elapsed_time // 60, elapsed_time % 60)
+            second = round(second, 2)
+            minute =  int(minute)
+
+            self.displayed_time.set(f"{minute}:{second}")
+
+            # update the time
+            self.root.update()
+            time.sleep(.01)
+
+    def stop_stop_watch(self):
+        global running; running = False
+
+    def reset_stop_watch(self):
+        self.displayed_time.set('00:00.00')
+
 class Workout2:
     def __init__(self, master=None, app=None):
         self.master = master
@@ -120,23 +129,26 @@ class Workout2:
                        font = ("texgyreadventor-regular", 20), command=self.make_page_3)
         b4.grid(row=0, column=2, padx=(0,10), sticky="")
         
-        timer = tk.Label(self.frame2, text = "00:00.00", fg = "black", bg = "white",
+        self.displayed_time = tk.StringVar()
+        timer = tk.Label(self.frame2, textvariable = self.displayed_time, fg = "black", bg = "white",
                          font = ("texgyreadventor-regular", 40))
+        self.displayed_time.set('00:00.00')
+        
         timer.grid(row=1, column=0, columnspan=3, pady=(30,20), sticky="")
         
     # Frame 3 setup
         self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
         
         b1 = tk.Button(self.frame3, text = 'Play', fg = "white", bg = "#5B8C5D",
-                       font = ("texgyreadventor-regular", 50))
+                       font = ("texgyreadventor-regular", 50), command = self.run_stop_watch)
         b1.grid(row=0, column=0, padx=30, sticky="")
         
         b2 = tk.Button(self.frame3, text = 'Stop', fg = "white", bg = "#9C4B60",
-                       font = ("texgyreadventor-regular", 50))
+                       font = ("texgyreadventor-regular", 50), command = self.stop_stop_watch)
         b2.grid(row=0, column=1, padx=30, sticky="")
         
         b3 = tk.Button(self.frame3, text = 'Reset', fg = "white", bg = "#748CBB",
-                       font = ("texgyreadventor-regular", 20))
+                       font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
         b3.grid(row=1, column=1, pady=(30,10), sticky="")
 
         # pack each section then pack the frame as a whole
@@ -150,6 +162,28 @@ class Workout2:
     def make_page_3(self):
         self.frame.pack_forget()
         self.app.page_3.start_page()
+
+    def run_stop_watch(self):
+        start_time = time.time()
+        global running; running = True
+
+        while running:
+            elapsed_time = time.time() - start_time
+            minute, second = (elapsed_time // 60, elapsed_time % 60)
+            second = round(second, 2)
+            minute =  int(minute)
+
+            self.displayed_time.set(f"{minute}:{second}")
+
+            # update the time
+            self.master.update()
+            time.sleep(.01)
+
+    def stop_stop_watch(self):
+        global running; running = False
+
+    def reset_stop_watch(self):
+        self.displayed_time.set('00:00.00')
 
 class Workout3:
     def __init__(self, master=None, app=None):
@@ -183,23 +217,25 @@ class Workout3:
                        font = ("texgyreadventor-regular", 20), command=self.go_back)
         b4.grid(row=0, column=2, padx=(0,10), sticky="")
         
-        timer = tk.Label(self.frame2, text = "00:00.00", fg = "black", bg = "white",
+        self.displayed_time = tk.StringVar()
+        timer = tk.Label(self.frame2, textvariable = self.displayed_time, fg = "black", bg = "white",
                          font = ("texgyreadventor-regular", 40))
+        self.displayed_time.set('00:00.00')
         timer.grid(row=1, column=0, columnspan=3, pady=(30,20), sticky="")
         
     # Frame 3 setup
         self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
         
         b1 = tk.Button(self.frame3, text = 'Play', fg = "white", bg = "#5B8C5D",
-                       font = ("texgyreadventor-regular", 50))
+                       font = ("texgyreadventor-regular", 50), command = self.run_stop_watch)
         b1.grid(row=0, column=0, padx=30, sticky="")
         
         b2 = tk.Button(self.frame3, text = 'Stop', fg = "white", bg = "#9C4B60",
-                       font = ("texgyreadventor-regular", 50))
+                       font = ("texgyreadventor-regular", 50), command = self.stop_stop_watch)
         b2.grid(row=0, column=1, padx=30, sticky="")
         
         b3 = tk.Button(self.frame3, text = 'Reset', fg = "white", bg = "#748CBB",
-                       font = ("texgyreadventor-regular", 20))
+                       font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
         b3.grid(row=1, column=1, pady=(30,10), sticky="")
 
         # pack each section then pack the frame as a whole
@@ -213,6 +249,28 @@ class Workout3:
     def go_back(self):
         self.frame.pack_forget()
         self.app.main_page()
+
+    def run_stop_watch(self):
+        start_time = time.time()
+        global running; running = True
+
+        while running:
+            elapsed_time = time.time() - start_time
+            minute, second = (elapsed_time // 60, elapsed_time % 60)
+            second = round(second, 2)
+            minute =  int(minute)
+
+            self.displayed_time.set(f"{minute}:{second}")
+
+            # update the time
+            self.master.update()
+            time.sleep(.01)
+
+    def stop_stop_watch(self):
+        global running; running = False
+
+    def reset_stop_watch(self):
+        self.displayed_time.set('00:00.00')
 
 ######################## MAIN ###########################
 if __name__ == '__main__':
