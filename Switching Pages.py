@@ -2,12 +2,14 @@ import tkinter as tk
 import time
 from tkinter import messagebox
 from datetime import datetime
-# from stopwatch import run_stop_watch
+from WorkoutPage import WorkoutPage
 counter = 66600
 running = False
 
-class Workout1:
+class Workout1(WorkoutPage):
     def __init__(self, root=None):
+        WorkoutPage.__init__(self, root)
+
         self.root = root
         self.frame = tk.Frame(self.root, bg = "#749CBB")
         self.frame.pack()
@@ -73,32 +75,11 @@ class Workout1:
         self.frame.pack_forget()
         self.page_2.start_page()
 
-    
-    # Define the function for the timer
-    def run_stop_watch(self):
-        start_time = time.time()
-        global running; running = True
 
-        while running:
-            elapsed_time = time.time() - start_time
-            minute, second = (elapsed_time // 60, elapsed_time % 60)
-            second = round(second, 2)
-            minute =  int(minute)
-
-            self.displayed_time.set(f"{minute}:{second}")
-
-            # update the time
-            self.root.update()
-            time.sleep(.01)
-
-    def stop_stop_watch(self):
-        global running; running = False
-
-    def reset_stop_watch(self):
-        self.displayed_time.set('00:00.00')
-
-class Workout2:
+class Workout2(WorkoutPage):
     def __init__(self, master=None, app=None):
+        WorkoutPage.__init__(self, master)
+
         self.master = master
         self.app = app
         self.frame = tk.Frame(self.master, bg = "#749CBB")
@@ -131,7 +112,7 @@ class Workout2:
         
         self.displayed_time = tk.StringVar()
         timer = tk.Label(self.frame2, textvariable = self.displayed_time, fg = "black", bg = "white",
-                         font = ("texgyreadventor-regular", 40))
+                         font = ("Helvetica 14", 40))
         self.displayed_time.set('00:00.00')
         
         timer.grid(row=1, column=0, columnspan=3, pady=(30,20), sticky="")
@@ -163,30 +144,11 @@ class Workout2:
         self.frame.pack_forget()
         self.app.page_3.start_page()
 
-    def run_stop_watch(self):
-        start_time = time.time()
-        global running; running = True
 
-        while running:
-            elapsed_time = time.time() - start_time
-            minute, second = (elapsed_time // 60, elapsed_time % 60)
-            second = round(second, 2)
-            minute =  int(minute)
-
-            self.displayed_time.set(f"{minute}:{second}")
-
-            # update the time
-            self.master.update()
-            time.sleep(.01)
-
-    def stop_stop_watch(self):
-        global running; running = False
-
-    def reset_stop_watch(self):
-        self.displayed_time.set('00:00.00')
-
-class Workout3:
+class Workout3(WorkoutPage):
     def __init__(self, master=None, app=None):
+        WorkoutPage.__init__(self, master)
+
         self.master = master
         self.app = app
         self.frame = tk.Frame(self.master, bg = "#749CBB")
@@ -249,28 +211,6 @@ class Workout3:
     def go_back(self):
         self.frame.pack_forget()
         self.app.main_page()
-
-    def run_stop_watch(self):
-        start_time = time.time()
-        global running; running = True
-
-        while running:
-            elapsed_time = time.time() - start_time
-            minute, second = (elapsed_time // 60, elapsed_time % 60)
-            second = round(second, 2)
-            minute =  int(minute)
-
-            self.displayed_time.set(f"{minute}:{second}")
-
-            # update the time
-            self.master.update()
-            time.sleep(.01)
-
-    def stop_stop_watch(self):
-        global running; running = False
-
-    def reset_stop_watch(self):
-        self.displayed_time.set('00:00.00')
 
 ######################## MAIN ###########################
 if __name__ == '__main__':
