@@ -1,71 +1,80 @@
-from tkinter import *
-import time
-from tkinter import messagebox
-from datetime import datetime
-counter = 66600
-running = False
+import tkinter as tk
+from Page import Page
 
-
-
-class MainGUI(Frame):
+# The Workout 1 class. Root class that initializes all other pages.
+# Also displays the first page.
+class Workout1(Page):
+    def __init__(self, root=None):
+        
+        # creates root page (page 1).
+        self.root = root
+        self.frame = tk.Frame(self.root, bg = "#749CBB")
+        self.frame.pack()
+        
+        # initializes the page GUI.
+        Page.__init__(self, self.frame, self.root, "One")
+        
+        # initializes workout pages 1 and 2.
+        self.page_2 = Workout2(master=self.root, app=self)
+        self.page_3 = Workout3(master=self.root, app=self)
     
-    def __init__(self, master):
-        super().__init__(master, bg = "#749CBB")
+    # Starts page 1.
+    def main_page(self):
+        self.frame.pack()
+    
+    # Starts page 2.
+    def make_next_page(self):
+        self.frame.pack_forget()
+        self.page_2.start_page()
+
+# The Workout 2 class. Displays second page.
+class Workout2(Page):
+    def __init__(self, master=None, app=None):
+        
+        # Creates page 2.
         self.master = master
-        self.setupGUI()
-
-    # timer = StringVar()
-    # timer.set('00:00.00')
+        self.app = app
+        self.frame = tk.Frame(self.master, bg = "#749CBB")
+        
+        # Initializes the page GUI.
+        Page.__init__(self, self.frame, self.master, "Two")
     
-    def setupGUI(self):
+    # Starts page 2.
+    def start_page(self):
+        self.frame.pack()
+    
+    # Starts page 3.
+    def make_next_page(self):
+        self.frame.pack_forget()
+        self.app.page_3.start_page()
 
-        t1 = Label(self.master, text = "Workout One", anchor = N, fg = "white", bg = "#749CBB", \
-              height = 1, width = 25, font = ("texgyreadventor-regular", 27)).place(x = 125, y = 0)
-
-        b1 = Button(self.master, text = 'Play', anchor = N, fg = "white", bg = "#5B8C5D", \
-              height = 1, width = 5, font = ("texgyreadventor-regular", 50)).place(x = 165, y = 225)
+# The Workout 3 class. Displays third page
+class Workout3(Page):
+    def __init__(self, master=None, app=None):
         
-        t2 = Label(self.master, text = "00:00.00", anchor = N, fg = "black", bg = "white", \
-              height = 1, width = 7, font = ("texgyreadventor-regular", 40)).place(x = 285, y = 135)
-        
-        b2 = Button(self.master, text = 'Stop', anchor = N, fg = "white", bg = "#9C4B60", \
-              height = 1, width = 5, font = ("texgyreadventor-regular", 50)).place(x = 425, y = 225)
-        
-        b3 = Button(self.master, text = 'Reset', anchor = N, fg = "white", bg = "#748CBB", \
-              height = 1, width = 5, font = ("texgyreadventor-regular", 20)).place(x = 50, y = 400)
-        
-        b3 = Button(self.master, text = 'Next Workout', anchor = N, fg = "white", bg = "#9E6CA8", \
-              height = 1, width = 11, font = ("texgyreadventor-regular", 20)).place(x = 555, y = 10)
-        
-        l1 = Label(self.master, text="Weight Lifted (lbs):", bd = 6, font = ("texgyreadventor-regular", 10)).place(x= 10, y = 10)
-        e1 = Entry(self.master, bd = 5, bg = 'white', font = 'Helvetica 14',  fg = 'black', width = 7, text = 'Weight Lifted',\
-                   justify = CENTER, textvariable = StringVar()).place(x = 140, y = 10)
-
-    #     tt = Label(self.master, textvariable=MainGUI.timer, width = 8,  font = 'Helvetica 14').place(x=420, y=120)
-        
-
-    # # Define the function for the timer
-    # def stop_watch(self):
-    #     start_time = time.time()
-    #     running = True
-    #     while running:
-    #         elapsed_time = time.time() - start_time
-    #         minute, second = (elapsed_time // 60, elapsed_time % 60)
-    #         second = round(second, 2)
-    #         minute =  int(minute)
-    #         MainGUI.timer.set(f"{minute}:{second}")
-
-    #         # update the time
-    #         root.update()
-    #         time.sleep(.01)
+        # Creates page 3.
+        self.master = master
+        self.app = app
+        self.frame = tk.Frame(self.master, bg = "#749CBB")
+        Page.__init__(self, self.frame, self.master, "Three")
+    
+    # starts page 3.
+    def start_page(self):
+        self.frame.pack()
+    
+    # starts page 1.
+    def make_next_page(self):
+        self.frame.pack_forget()
+        self.app.main_page()
 
 ######################## MAIN ###########################
-root = Tk()
-root.configure(bg="#749CBB")
-root.geometry("750x500")
 
-# generate the GUI
-p = MainGUI(root)
-
-# display the GUI and wait for user interaction
-root.mainloop()
+# Main page loop.
+if __name__ == '__main__':
+    root = tk.Tk()
+    
+    # Generates the GUI.
+    app = Workout1(root)
+    
+    # Display the GUI.
+    root.mainloop()
