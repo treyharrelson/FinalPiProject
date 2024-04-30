@@ -34,11 +34,15 @@ class Stopwatch:
 
 # This class contains the functions for setting up GUI for pages 1-3
 class Page(Stopwatch):
+
+    data = []
+
     def __init__(self, frame, root, workout):
         self.frame = frame
         self.root = root
         self.workout = workout
         Stopwatch.__init__(self, self.root)
+        
         
     # Initializes all widgets on the page
     # Sets up 3 different sections on the page using tk.Frame
@@ -56,9 +60,9 @@ class Page(Stopwatch):
         t3 = tk.Label(self.frame2, text = 'Weight Lifted (lbs):', font = ("texgyreadventor-regular", 10))
         t3.grid(row=0, column=0, padx=(10,0), sticky="")
         
-        entry = tk.Entry(self.frame2, bd = 5, width= 4, bg = 'white', font = ("texgyreadventor-regular"), 
+        self.entry = tk.Entry(self.frame2, bd = 5, width= 4, bg = 'white', font = ("texgyreadventor-regular"), 
                          fg = 'black', text = 'Weight Lifted',)
-        entry.grid(row=0, column=1, padx=(5,345), sticky="")
+        self.entry.grid(row=0, column=1, padx=(5,345), sticky="")
         
         b4 = tk.Button(self.frame2, text = 'Next Workout', fg = "white", bg = "#9E6CA8",
                        font = ("texgyreadventor-regular", 20), command = self.make_next_page)
@@ -84,9 +88,19 @@ class Page(Stopwatch):
         b3 = tk.Button(self.frame3, text = 'Reset', fg = "white", bg = "#748CBB",
                        font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
         b3.grid(row=1, column=1, pady=(30,10), sticky="")
+
+        # get the values from the entry and send to an array
         
+        enter = tk.Button(self.frame2, text = 'Enter', fg = "white", bg = "#748CBB",
+                       font = ("texgyreadventor-regular", 20), command = self.get_value)
+        enter.grid(row=0, column=1, padx=(0,10), sticky="")
+            
         # pack each section then pack the frame as a whole
         self.frame1.pack()
         self.frame2.pack()
         self.frame3.pack()
-
+        
+    def get_value(self):
+        e_text=self.entry.get()
+        Page.data.append(e_text)
+        print (Page.data)
