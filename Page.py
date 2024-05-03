@@ -61,18 +61,26 @@ class Page(Stopwatch):
         t3.grid(row=0, column=0, padx=(10,0), sticky="")
         
         self.entry = tk.Entry(self.frame2, bd = 5, width= 4, bg = 'white', font = ("texgyreadventor-regular"), 
-                         fg = 'black', text = 'Weight Lifted',)
-        self.entry.grid(row=0, column=1, padx=(5,345), sticky="")
+                         fg = 'black')
+        self.entry.grid(row=0, column=1, padx=(5, 5), sticky="")
+        
+        # get the values from the entry and send to an array
+        enter = tk.Button(self.frame2, text = 'Enter', fg = "white", bg = "#748CBB",
+                       font = ("texgyreadventor-regular", 15), command = self.get_value)
+        enter.grid(row=0, column=2, padx=(0,340), sticky="")
         
         b4 = tk.Button(self.frame2, text = 'Next Workout', fg = "white", bg = "#9E6CA8",
                        font = ("texgyreadventor-regular", 20), command = self.make_next_page)
-        b4.grid(row=0, column=2, padx=(0,10), sticky="")
+        b4.grid(row=0, column=3, padx=(0,10), sticky="")
+        
+        Invalid_Entry = tk.Label(self.frame2, text = '', bg = "#749CBB", font = ("texgyreadventor-regular", 10))
+        Invalid_Entry.grid(row=1, column=1, sticky="")
         
         self.displayed_time = tk.StringVar()
         timer = tk.Label(self.frame2, textvariable = self.displayed_time, fg = "black", bg = "white",
                          font = ("texgyreadventor-regular", 40))
         self.displayed_time.set('00:00.00')
-        timer.grid(row=1, column=0, columnspan=3, pady=(30,20), sticky="")
+        timer.grid(row=2, column=0, columnspan=4, pady=(30,20), sticky="")
         
     # Frame 3 setup
         self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
@@ -88,13 +96,7 @@ class Page(Stopwatch):
         b3 = tk.Button(self.frame3, text = 'Reset', fg = "white", bg = "#748CBB",
                        font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
         b3.grid(row=1, column=1, pady=(30,10), sticky="")
-
-        # get the values from the entry and send to an array
         
-        enter = tk.Button(self.frame2, text = 'Enter', fg = "white", bg = "#748CBB",
-                       font = ("texgyreadventor-regular", 20), command = self.get_value)
-        enter.grid(row=0, column=1, padx=(0,10), sticky="")
-            
         # pack each section then pack the frame as a whole
         self.frame1.pack()
         self.frame2.pack()
