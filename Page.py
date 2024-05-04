@@ -37,18 +37,16 @@ class Page(Stopwatch):
 
     data = [0, 1, 2]
     
-    def __init__(self, frame, root, workout, workoutint ):
+    def __init__(self, frame, root, pageint, workout=None):
         self.frame = frame
         self.root = root
+        self.pageint = pageint
         self.workout = workout
-        self.workoutint = workoutint
         self.ready_to_switch = False
         Stopwatch.__init__(self, self.root)
         
-        
     # Initializes all widgets on the page
     # Sets up 3 different sections on the page using tk.Frame
-    
     # Frame 1 setup
         self.frame1 = tk.Frame(self.frame, bg = "#749CBB")
         
@@ -87,25 +85,24 @@ class Page(Stopwatch):
         timer.grid(row=2, column=0, columnspan=4, pady=(30,20), sticky="")
         
     # Frame 3 setup
-        self.frame4 = tk.Frame(self.frame, bg = "#749CBB")
+        self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
         
-        b1 = tk.Button(self.frame4, text = 'Play', fg = "white", bg = "#5B8C5D",
+        b1 = tk.Button(self.frame3, text = 'Play', fg = "white", bg = "#5B8C5D",
                        font = ("texgyreadventor-regular", 50), command = self.run_stop_watch)
         b1.grid(row=0, column=0, padx=30, sticky="")
         
-        b2 = tk.Button(self.frame4, text = 'Stop', fg = "white", bg = "#9C4B60",
+        b2 = tk.Button(self.frame3, text = 'Stop', fg = "white", bg = "#9C4B60",
                        font = ("texgyreadventor-regular", 50), command = self.stop_stop_watch)
         b2.grid(row=0, column=1, padx=30, sticky="")
         
-        b3 = tk.Button(self.frame4, text = 'Reset', fg = "white", bg = "#748CBB",
+        b3 = tk.Button(self.frame3, text = 'Reset', fg = "white", bg = "#748CBB",
                        font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
         b3.grid(row=1, column=1, pady=(30,10), sticky="")
         
-        # pack each section then pack the frame as a whole
+        # pack each section to the main-frame
         self.frame1.pack()
         self.frame2.pack()
-        #self.frame3.pack()
-        self.frame4.pack()
+        self.frame3.pack()
         
     def get_value(self):
         e_text=self.entry.get()
@@ -119,9 +116,38 @@ class Page(Stopwatch):
         else:
             if 0 < int(e_text) <= 1400:
                 self.ready_to_switch = True
-                Page.data[self.workoutint - 1] = int(e_text)
+                Page.data[self.pageint - 1] = int(e_text)
                 self.invalidEntry.set(" \n")
                 Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "#749CBB", font = ("texgyreadventor-regular", 10))
                 Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
                 
         print (Page.data)
+        
+    # Initializes all widgets on page version 2
+    # Sets up 3 different sections on the page using tk.Frame
+class Page2:
+    def __init__(self, frame, root):
+        self.frame = frame
+        self.root = root
+        self.frame1 = tk.Frame(self.frame, bg = "#749CBB")
+        
+        t1 = tk.Label(self.frame1, text = f"Workout Results", fg = "white",
+                      bg = "#749CBB", font = ("texgyreadventor-regular",30))
+        t1.grid(row=0, column=0, pady=(10,0), sticky="")
+        
+        # FRAME 1 FOR THE TITLE
+        
+    # Frame 2 setup
+        self.frame2 = tk.Frame(self.frame, bg = "#749CBB")
+        
+         # FRAME 2 FOR HEADERS
+        
+    # Frame 3 setup
+        self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
+
+        # FRAME 3 FOR CHART
+        
+        # pack each section to the main-frame
+        self.frame1.pack()
+        self.frame2.pack()
+        self.frame3.pack()
