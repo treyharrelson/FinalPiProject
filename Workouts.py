@@ -12,7 +12,7 @@ class Workout1(Page):
         self.frame.pack()
         
         # initializes the page GUI.
-        Page.__init__(self, self.frame, self.root, "One")
+        Page.__init__(self, self.frame, self.root, "One", 1)
         
         # initializes workout pages 1 and 2.
         self.page_2 = Workout2(master=self.root, app=self)
@@ -24,8 +24,13 @@ class Workout1(Page):
     
     # Starts page 2.
     def make_next_page(self):
-        self.frame.pack_forget()
-        self.page_2.start_page()
+        if self.ready_to_switch == True:
+            self.frame.pack_forget()
+            self.page_2.start_page()
+        else:
+            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+            Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
+            Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
 
 # The Workout 2 class. Displays second page.
 class Workout2(Page):
@@ -37,7 +42,7 @@ class Workout2(Page):
         self.frame = tk.Frame(self.master, bg = "#749CBB")
         
         # Initializes the page GUI.
-        Page.__init__(self, self.frame, self.master, "Two")
+        Page.__init__(self, self.frame, self.master, "Two", 2)
     
     # Starts page 2.
     def start_page(self):
@@ -45,8 +50,13 @@ class Workout2(Page):
     
     # Starts page 3.
     def make_next_page(self):
-        self.frame.pack_forget()
-        self.app.page_3.start_page()
+        if self.ready_to_switch == True:
+            self.frame.pack_forget()
+            self.app.page_3.start_page()
+        else:
+            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+            Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
+            Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
 
 # The Workout 3 class. Displays third page
 class Workout3(Page):
@@ -56,7 +66,7 @@ class Workout3(Page):
         self.master = master
         self.app = app
         self.frame = tk.Frame(self.master, bg = "#749CBB")
-        Page.__init__(self, self.frame, self.master, "Three")
+        Page.__init__(self, self.frame, self.master, "Three", 3)
     
     # starts page 3.
     def start_page(self):
@@ -64,8 +74,13 @@ class Workout3(Page):
     
     # starts page 1.
     def make_next_page(self):
-        self.frame.pack_forget()
-        self.app.main_page()
+        if self.ready_to_switch == True:
+            self.frame.pack_forget()
+            self.app.main_page()
+        else:
+            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+            Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
+            Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
 
 ######################## MAIN ###########################
 

@@ -35,12 +35,14 @@ class Stopwatch:
 # This class contains the functions for setting up GUI for pages 1-3
 class Page(Stopwatch):
 
-    data = []
-
-    def __init__(self, frame, root, workout):
+    data = [0, 1, 2]
+    
+    def __init__(self, frame, root, workout, workoutint ):
         self.frame = frame
         self.root = root
         self.workout = workout
+        self.workoutint = workoutint
+        self.ready_to_switch = False
         Stopwatch.__init__(self, self.root)
         
         
@@ -73,8 +75,10 @@ class Page(Stopwatch):
                        font = ("texgyreadventor-regular", 20), command = self.make_next_page)
         b4.grid(row=0, column=3, padx=(0,10), sticky="")
         
-        Invalid_Entry = tk.Label(self.frame2, text = '', bg = "#749CBB", font = ("texgyreadventor-regular", 10))
-        Invalid_Entry.grid(row=1, column=1, sticky="")
+        self.invalidEntry = tk.StringVar()
+        self.invalidEntry.set(" \n")
+        Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "#749CBB", font = ("texgyreadventor-regular", 10))
+        Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
         
         self.displayed_time = tk.StringVar()
         timer = tk.Label(self.frame2, textvariable = self.displayed_time, fg = "black", bg = "white",
@@ -83,26 +87,41 @@ class Page(Stopwatch):
         timer.grid(row=2, column=0, columnspan=4, pady=(30,20), sticky="")
         
     # Frame 3 setup
-        self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
+        self.frame4 = tk.Frame(self.frame, bg = "#749CBB")
         
-        b1 = tk.Button(self.frame3, text = 'Play', fg = "white", bg = "#5B8C5D",
+        b1 = tk.Button(self.frame4, text = 'Play', fg = "white", bg = "#5B8C5D",
                        font = ("texgyreadventor-regular", 50), command = self.run_stop_watch)
         b1.grid(row=0, column=0, padx=30, sticky="")
         
-        b2 = tk.Button(self.frame3, text = 'Stop', fg = "white", bg = "#9C4B60",
+        b2 = tk.Button(self.frame4, text = 'Stop', fg = "white", bg = "#9C4B60",
                        font = ("texgyreadventor-regular", 50), command = self.stop_stop_watch)
         b2.grid(row=0, column=1, padx=30, sticky="")
         
-        b3 = tk.Button(self.frame3, text = 'Reset', fg = "white", bg = "#748CBB",
+        b3 = tk.Button(self.frame4, text = 'Reset', fg = "white", bg = "#748CBB",
                        font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
         b3.grid(row=1, column=1, pady=(30,10), sticky="")
         
         # pack each section then pack the frame as a whole
         self.frame1.pack()
         self.frame2.pack()
-        self.frame3.pack()
+        #self.frame3.pack()
+        self.frame4.pack()
         
     def get_value(self):
         e_text=self.entry.get()
-        Page.data.append(e_text)
+        try:
+            isinstance(int(e_text), int)
+        except:
+            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+            Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
+            Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+            self.ready_to_switch = False
+        else:
+            if 0 < int(e_text) <= 1400:
+                self.ready_to_switch = True
+                Page.data[self.workoutint - 1] = int(e_text)
+                self.invalidEntry.set(" \n")
+                Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "#749CBB", font = ("texgyreadventor-regular", 10))
+                Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+                
         print (Page.data)
