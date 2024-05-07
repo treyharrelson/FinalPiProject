@@ -1,5 +1,5 @@
 import tkinter as tk
-from Page import Page, Page2
+from Page import Page, ResultsPage
 
 # The Workout 1 class. Root class that initializes all other pages.
 # Also displays the first page.
@@ -32,6 +32,19 @@ class Workout1(Page):
             self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+    
+    # Resets app
+    def start_over(self):
+        # Resets all variables
+        Page.data = [0, 1, 2]
+        self.reset_stop_watch
+        self.invalidEntry.set(" \n")
+        self.ready_to_switch = False
+        self.entry.delete(0, 'end')
+        # Resets franes
+        self.frame.pack_forget()
+        self.app.main_page()
+
 
 # The Workout 2 class. Displays second page.
 class Workout2(Page):
@@ -58,6 +71,19 @@ class Workout2(Page):
             self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+    
+    # Resets app
+    def start_over(self):
+        # Resets all variables
+        Page.data = [0, 1, 2]
+        self.reset_stop_watch
+        self.invalidEntry.set(" \n")
+        self.ready_to_switch = False
+        self.entry.delete(0, 'end')
+        # Resets franes
+        self.frame.pack_forget()
+        self.app.main_page()
+
 
 # The Workout 3 class. Displays third page
 class Workout3(Page):
@@ -69,11 +95,11 @@ class Workout3(Page):
         self.frame = tk.Frame(self.master, bg = "#749CBB")
         Page.__init__(self, self.frame, self.master, 3, "Three")
     
-    # starts page 3.
+    # Starts page 3.
     def start_page(self):
         self.frame.pack()
     
-    # starts page 1.
+    # Starts page 1.
     def make_next_page(self):
         if self.ready_to_switch == True:
             self.frame.pack_forget()
@@ -82,17 +108,32 @@ class Workout3(Page):
             self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+    
+    # Resets app
+    def start_over(self):
+        # Resets all variables
+        Page.data = [0, 1, 2]
+        self.reset_stop_watch
+        self.invalidEntry.set(" \n")
+        self.ready_to_switch = False
+        self.entry.delete(0, 'end')
+        # Resets franes
+        self.frame.pack_forget()
+        self.app.main_page()
 
-class WorkoutResults(Page2):
+
+class WorkoutResults(ResultsPage):
     def __init__(self, master=None, app=None):
         self.master = master
         self.app = app
         self.frame = tk.Frame(self.master, bg = "#749CBB")
-        Page2.__init__(self, self.frame, self.master)
-
+        ResultsPage.__init__(self, self.frame, self.master)
+    
+    # Starts results page
     def start_page(self):
         self.frame.pack()
-
+    
+    # Resets app
     def start_over(self):
         self.frame.pack_forget()
         self.app.main_page()
