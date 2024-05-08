@@ -36,7 +36,6 @@ class Stopwatch:
         self.elapsed_time = 0
 
 
-
 # This class contains the functions for setting up GUI for pages 1-3.
 class Page(Stopwatch):
 
@@ -157,7 +156,7 @@ class ResultsPage:
         
         t1 = tk.Label(self.frame1, text = f"Workout Results", fg = "white",
                       bg = "#749CBB", font = ("texgyreadventor-regular",30))
-        t1.grid(row=0, column=0, pady=(10,70), padx=(250,250), sticky="")
+        t1.grid(row=0, column=0, pady=(10,60), padx=(250,250), sticky="")
         
         
     # Frame 2 setup.
@@ -171,7 +170,7 @@ class ResultsPage:
         
         
         spacer = tk.Label(self.frame3, text = "", bg = "#749CBB", font = ("texgyreadventor-regular", 10))
-        spacer.grid(row=0, column=0, pady= (177, 0), sticky="")
+        spacer.grid(row=0, column=0, pady= (60, 0), sticky="")
     #     b1 = tk.Button(self.frame3, text = 'Start Workout Over', fg = "white", bg = "#748CAA",
     #                    font = ("texgyreadventor-regular", 20), command = self.start_over)
     #     b1.grid(row=1, column=0, pady=(30,10), sticky="")
@@ -184,14 +183,30 @@ class ResultsPage:
     # creates
     def Make_Table(self):
         
-        # PUT SENSOR VARIABLES IN PLACE OF 1, 2, 3, 4
+        weight = 170
+        oneRepMax = f"Your One Rep\nmax is {weight}"
+        
+        repChange = "An increase in\nreps is reccomended"
+        repChange = "A decrease in\nreps is reccomended"
+        repChange = "No change in\nreps is reccomended"
+        
+        weightChange = "An increase in\nweight is reccomended"
+        weightChange = "A decrease in\nweight is reccomended"
+        weightChange = "No change in\nweight is reccomended"
+        
+        set1, set2, set3 = 1, 2, 3
+        avgReps = round((set1 + set2 + set3)/3, 1) 
+        avgReps = f"Your average reps\nwas {avgReps}"
+        
+        
+
         
         # take the data
         list = [
-            ("One Rep Max", 1),
-            ("Rep Change", 2),
-            ("Weight Change", 3),
-            ("Reps", 4)
+            ("One Rep Max", oneRepMax),
+            ("Rep Change", repChange),
+            ("Weight Change", weightChange),
+            ("Reps", avgReps)
             ]
 
         # find total number of rows and
@@ -207,6 +222,6 @@ class ResultsPage:
                 table_text.set(list[i][j])
                 table = tk.Label(self.frame2, textvariable = table_text, bg = "#749CBB",
                                  highlightbackground="white", highlightthickness=2, 
-                                 width=20, fg="white", font=('Arial',20,'bold'))
+                                 width=20, height= 2, fg="white", font=('Arial',20,'bold'))
                 table.grid(row=i, column=j)
 
