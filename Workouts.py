@@ -33,17 +33,17 @@ class Workout1(Page):
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
     
-    # Resets app
-    def start_over(self):
-        # Resets all variables
-        Page.data = [0, 1, 2]
-        self.reset_stop_watch
-        self.invalidEntry.set(" \n")
-        self.ready_to_switch = False
-        self.entry.delete(0, 'end')
-        # Resets franes
-        self.frame.pack_forget()
-        self.app.main_page()
+    # # Resets app
+    # def start_over(self):
+    #     # Resets all variables
+    #     Page.data = [0, 1, 2]
+    #     self.reset_stop_watch
+    #     self.invalidEntry.set(" \n")
+    #     self.ready_to_switch = False
+    #     self.entry.delete(0, 'end')
+    #     # Resets franes
+    #     self.frame.pack_forget()
+    #     self.main_page()
 
 
 # The Workout 2 class. Displays second page.
@@ -72,17 +72,17 @@ class Workout2(Page):
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
     
-    # Resets app
-    def start_over(self):
-        # Resets all variables
-        Page.data = [0, 1, 2]
-        self.reset_stop_watch
-        self.invalidEntry.set(" \n")
-        self.ready_to_switch = False
-        self.entry.delete(0, 'end')
-        # Resets franes
-        self.frame.pack_forget()
-        self.app.main_page()
+    # # Resets app
+    # def start_over(self):
+    #     # Resets all variables
+    #     Page.data = [0, 1, 2]
+    #     self.reset_stop_watch
+    #     self.invalidEntry.set(" \n")
+    #     self.ready_to_switch = False
+    #     self.entry.delete(0, 'end')
+    #     # Resets franes
+    #     self.frame.pack_forget()
+    #     self.app.main_page()
 
 
 # The Workout 3 class. Displays third page
@@ -109,17 +109,17 @@ class Workout3(Page):
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
     
-    # Resets app
-    def start_over(self):
-        # Resets all variables
-        Page.data = [0, 1, 2]
-        self.reset_stop_watch
-        self.invalidEntry.set(" \n")
-        self.ready_to_switch = False
-        self.entry.delete(0, 'end')
-        # Resets franes
-        self.frame.pack_forget()
-        self.app.main_page()
+    # # Resets app
+    # def start_over(self):
+    #     # Resets all variables
+    #     Page.data = [0, 1, 2]
+    #     self.reset_stop_watch
+    #     self.invalidEntry.set(" \n")
+    #     self.ready_to_switch = False
+    #     self.entry.delete(0, 'end')
+    #     # Resets franes
+    #     self.frame.pack_forget()
+    #     self.app.main_page()
 
 
 class WorkoutResults(ResultsPage):
@@ -133,13 +133,13 @@ class WorkoutResults(ResultsPage):
     def start_page(self):
         self.frame.pack()
     
-    # Resets app
-    def start_over(self):
-        self.frame.pack_forget()
-        self.app.main_page()
+    # # Resets app
+    # def start_over(self):
+    #     self.frame.pack_forget()
+    #     self.app.main_page()
 
 ######################## MAIN ###########################
-print ("hello")
+
 # Main page loop.
 if __name__ == '__main__':
     root = tk.Tk()

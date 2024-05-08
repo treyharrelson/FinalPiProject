@@ -107,9 +107,9 @@ class Page(Stopwatch):
     # Frame 4 setup
         self.frame4 = tk.Frame(self.frame, bg = "#749CBB")
         
-        b3 = tk.Button(self.frame4, text = 'Start Workout Over', fg = "white", bg = "#748CAA",
-                       font = ("texgyreadventor-regular", 20), command = self.start_over)
-        b3.grid(row=1, column=0, pady=(30,10), sticky="")
+        # b3 = tk.Button(self.frame4, text = 'Start Workout Over', fg = "white", bg = "#748CAA",
+        #                font = ("texgyreadventor-regular", 20), command = self.start_over)
+        # b3.grid(row=1, column=0, pady=(30,10), sticky="")
         
         b4 = tk.Button(self.frame4, text = 'Reset timer', fg = "white", bg = "#748CBB",
                        font = ("texgyreadventor-regular", 20), command = self.reset_stop_watch)
@@ -157,7 +157,7 @@ class ResultsPage:
         
         t1 = tk.Label(self.frame1, text = f"Workout Results", fg = "white",
                       bg = "#749CBB", font = ("texgyreadventor-regular",30))
-        t1.grid(row=0, column=0, pady=(10,0), sticky="")
+        t1.grid(row=0, column=0, pady=(10,70), padx=(250,250), sticky="")
         
         
     # Frame 2 setup.
@@ -169,9 +169,12 @@ class ResultsPage:
     # Frame 3 setup.
         self.frame3 = tk.Frame(self.frame, bg = "#749CBB")
         
-        b1 = tk.Button(self.frame3, text = 'Start Workout Over', fg = "white", bg = "#748CAA",
-                       font = ("texgyreadventor-regular", 20), command = self.start_over)
-        b1.grid(row=1, column=0, pady=(30,10), sticky="")
+        
+        spacer = tk.Label(self.frame3, text = "", bg = "#749CBB", font = ("texgyreadventor-regular", 10))
+        spacer.grid(row=0, column=0, pady= (177, 0), sticky="")
+    #     b1 = tk.Button(self.frame3, text = 'Start Workout Over', fg = "white", bg = "#748CAA",
+    #                    font = ("texgyreadventor-regular", 20), command = self.start_over)
+    #     b1.grid(row=1, column=0, pady=(30,10), sticky="")
         
     # Pack each section to the main-frame.
         self.frame1.pack()
@@ -202,8 +205,8 @@ class ResultsPage:
                 
                 table_text = tk.StringVar()
                 table_text.set(list[i][j])
-                table = tk.Label(self.frame2, textvariable = table_text, 
-                                      highlightbackground="blue", highlightthickness=2, 
-                                      width=20, fg='blue', font=('Arial',16,'bold'))
+                table = tk.Label(self.frame2, textvariable = table_text, bg = "#749CBB",
+                                 highlightbackground="white", highlightthickness=2, 
+                                 width=20, fg="white", font=('Arial',20,'bold'))
                 table.grid(row=i, column=j)
 
