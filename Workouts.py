@@ -139,7 +139,7 @@ class WorkoutResults(ResultsPage):
         self.app.main_page()
 
 ######################## MAIN ###########################
-
+print ("hello")
 # Main page loop.
 if __name__ == '__main__':
     root = tk.Tk()
@@ -149,3 +149,4 @@ if __name__ == '__main__':
     
     # Display the GUI.
     root.mainloop()
+    
