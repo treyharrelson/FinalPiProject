@@ -44,7 +44,8 @@ class Stopwatch:
 # This class contains the functions for setting up GUI for pages 1-3.
 class Page(Stopwatch):
 
-    data = [0, 1, 2]
+    workoutWeights = [0, 1, 2]
+    workoutReps = [0, 1, 2]
     
     def __init__(self, frame, root, pageint, workout=None):
         self.frame = frame
@@ -73,14 +74,21 @@ class Page(Stopwatch):
         t3 = tk.Label(self.frame2, text = 'Weight Lifted (lbs):', font = ("texgyreadventor-regular", 10))
         t3.grid(row=0, column=0, padx=(10,0), sticky="")
         
-        self.entry = tk.Entry(self.frame2, bd = 5, width= 4, bg = 'white', font = ("texgyreadventor-regular"), 
+        self.entry1 = tk.Entry(self.frame2, bd = 5, width= 4, bg = 'white', font = ("texgyreadventor-regular"), 
                          fg = 'black')
-        self.entry.grid(row=0, column=1, padx=(5, 5), sticky="")
+        self.entry1.grid(row=0, column=1, padx=(5, 5), sticky="")
+        
+        t4 = tk.Label(self.frame2, text = 'Reps Lifted:', font = ("texgyreadventor-regular", 10))
+        t4.grid(row=1, column=0, padx=(10,0), sticky="")
+        
+        self.entry2 = tk.Entry(self.frame2, bd = 5, width= 4, bg = 'white', font = ("texgyreadventor-regular"), 
+                         fg = 'black')
+        self.entry2.grid(row=1, column=1, padx=(5, 5), sticky="")
         
         # Get the values from the entry and send to an array.
         enter = tk.Button(self.frame2, text = 'Enter', fg = "white", bg = "#748CBB",
-                       font = ("texgyreadventor-regular", 15), command = self.get_value)
-        enter.grid(row=0, column=2, padx=(0,340), sticky="")
+                       font = ("texgyreadventor-regular", 15), command = self.get_values)
+        enter.grid(row=0, column=2, rowspan= 2, padx=(0, 340), sticky="")
         
         self.next_button = tk.StringVar()
         if self.pageint == 3:
@@ -94,13 +102,13 @@ class Page(Stopwatch):
         self.invalidEntry = tk.StringVar()
         self.invalidEntry.set(" \n")
         Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "#749CBB", font = ("texgyreadventor-regular", 10))
-        Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+        Invalid_Entry.grid(row=2, column=0, columnspan=2, sticky="")
         
         self.displayed_time = tk.StringVar()
         timer = tk.Label(self.frame2, textvariable = self.displayed_time, fg = "black", bg = "white",
                          font = ("texgyreadventor-regular", 40))
         self.displayed_time.set('00:00.00')
-        timer.grid(row=2, column=0, columnspan=4, pady=(30,20), sticky="")
+        timer.grid(row=3, column=0, columnspan=4, pady=(30,20), sticky="")
         
         
     # Frame 3 setup.
@@ -139,26 +147,32 @@ class Page(Stopwatch):
         self.frame4.pack()
     
     # Retrieves use input value.
-    def get_value(self):
-        e_text=self.entry.get()
+    def get_values(self):
+        e_text=self.entry1.get()
+        e_text2=self.entry2.get()
         
-        # Tests to see if input is a valid integer greater than 0 and less than 1400.
+        # Tests to see if inputs are a valid integer greater than 0.
+        # For weight, hass to be less than 1400.
+        # For reps, has to be less than 40
         try:
             isinstance(int(e_text), int)
+            isinstance(int(e_text2), int)
         except:
-            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+            self.invalidEntry.set("Invalid Entry. Please input the weight \nbeing lifted and reps lifted")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
-            Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+            Invalid_Entry.grid(row=2, column=0, columnspan=2, sticky="")
             self.weight_input = False
         else:
-            if 0 < int(e_text) <= 1400:
-                self.weight_input = True
-                Page.data[self.pageint - 1] = int(e_text)
+            if (0 < int(e_text) <= 1400) and (0 < int(e_text2) <= 40):
+                self.valid_inputs = True
+                Page.workoutWeights[self.pageint - 1] = int(e_text)
+                Page.workoutReps[self.pageint - 1] = int(e_text2)
                 self.invalidEntry.set(" \n")
                 Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "#749CBB", font = ("texgyreadventor-regular", 10))
-                Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
-                
-        print (Page.data)
+                Invalid_Entry.grid(row=2, column=0, columnspan=2, sticky="")
+        print ("")
+        print (f"Weights: {Page.workoutWeights}")
+        print (f"Reps: {Page.workoutReps}")
 
 
 # This class contains the functions for setting up GUI for page 4.
