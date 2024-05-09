@@ -5,6 +5,9 @@ class SerialReader:
 
     def __init__(self, port, baudrate):
         self.arduino_data = serial.Serial(port, baudrate)
+        self.x_acceleration = 0
+        self.y_acceleration = 0
+        self.z_acceleration = 0
         self.x_velocity = 0
         self.y_velocity = 0
         self.z_velocity = 0
@@ -24,11 +27,14 @@ class SerialReader:
             while self.arduino_data.inWaiting()==0:
                 pass
             dataPacket = self.arduino_data.readline().decode().strip()
-            velocities = dataPacket.split(",")
-            if len(velocities)==3:
-                self.x_velocity = float(velocities[0])
-                self.y_velocity = float(velocities[1])
-                self.z_velocity = float(velocities[2])
+            values = dataPacket.split(",")
+            if len(values)==6:
+                self.x_acceleration = float(values[0])
+                self.y_acceleration = float(values[1])
+                self.z_acceleration = float(values[2])
+                self.x_velocity = float(values[3])
+                self.y_velocity = float(values[4])
+                self.z_velocity = float(values[5])
                 
                 if self.z_velocity > 0:
                     consecutive_pos += 1
@@ -53,7 +59,7 @@ class SerialReader:
                     consecutive_neg = 0
                     eccentric = False
                 
-                print(f"Z={self.z_velocity}  reps={self.reps}  {eccentric}  {check_rep_counter}")
+                print(f"X Velocity={self.x_velocity}, Y Velocity={self.y_velocity}, Z Velocity={self.z_velocity},  reps={self.reps},  Moving Up = {eccentric}")
                 check_rep_counter += 1
 
             
@@ -63,8 +69,8 @@ class SerialReader:
         self.running = False
 
 
-# s = SerialReader('COM5', 115200)
-# s.start_running()
-# s.read_data()
+s = SerialReader('COM5', 115200)
+s.start_running()
+s.read_data()
 
 
