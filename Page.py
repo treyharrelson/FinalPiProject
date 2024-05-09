@@ -11,6 +11,7 @@ class Stopwatch:
         # Starts timer.
     def run_stop_watch(self):
         start_time = time.time() - self.elapsed_time
+        self.play_clicked = True
         global running; running = True
         
         # Calculates time.
@@ -29,9 +30,13 @@ class Stopwatch:
     
     # Pauses the Stop Watch
     def stop_stop_watch(self):
+        if self.play_clicked == True:
+            self.stop_clicked = True
         global running; running = False
     
     def reset_stop_watch(self):
+        self.play_clicked = False
+        self.stop_clicked = False
         self.displayed_time.set('00:00.00')
         self.elapsed_time = 0
 
@@ -46,7 +51,9 @@ class Page(Stopwatch):
         self.root = root
         self.pageint = pageint
         self.workout = workout
-        self.ready_to_switch = False
+        self.play_clicked = False
+        self.stop_clicked = False
+        self.weight_input = False
         Stopwatch.__init__(self, self.root)
         
         
@@ -75,7 +82,12 @@ class Page(Stopwatch):
                        font = ("texgyreadventor-regular", 15), command = self.get_value)
         enter.grid(row=0, column=2, padx=(0,340), sticky="")
         
-        b4 = tk.Button(self.frame2, text = 'Next Workout', fg = "white", bg = "#9E6CA8",
+        self.next_button = tk.StringVar()
+        if self.pageint == 3:
+            self.next_button.set("Results")
+        else:
+            self.next_button.set("Next Workout")
+        b4 = tk.Button(self.frame2, textvariable= self.next_button, fg = "white", bg = "#9E6CA8",
                        font = ("texgyreadventor-regular", 20), command = self.make_next_page)
         b4.grid(row=0, column=3, padx=(0,10), sticky="")
         
@@ -101,6 +113,11 @@ class Page(Stopwatch):
         b2 = tk.Button(self.frame3, text = 'Stop', fg = "white", bg = "#9C4B60",
                        font = ("texgyreadventor-regular", 50), command = self.stop_stop_watch)
         b2.grid(row=0, column=1, padx=30, sticky="")
+        
+        self.workout_not_complete = tk.StringVar()
+        self.workout_not_complete.set(" ")
+        Complete_Workout = tk.Label(self.frame3, textvariable = self.workout_not_complete, bg = "#749CBB", font = ("texgyreadventor-regular", 15))
+        Complete_Workout.grid(row=1, column=0, columnspan=2, pady=(5,0), sticky="")
         
         
     # Frame 4 setup
@@ -132,10 +149,10 @@ class Page(Stopwatch):
             self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
-            self.ready_to_switch = False
+            self.weight_input = False
         else:
             if 0 < int(e_text) <= 1400:
-                self.ready_to_switch = True
+                self.weight_input = True
                 Page.data[self.pageint - 1] = int(e_text)
                 self.invalidEntry.set(" \n")
                 Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "#749CBB", font = ("texgyreadventor-regular", 10))
@@ -170,7 +187,7 @@ class ResultsPage:
         
         
         spacer = tk.Label(self.frame3, text = "", bg = "#749CBB", font = ("texgyreadventor-regular", 10))
-        spacer.grid(row=0, column=0, pady= (60, 0), sticky="")
+        spacer.grid(row=0, column=0, pady= (80, 0), sticky="")
     #     b1 = tk.Button(self.frame3, text = 'Start Workout Over', fg = "white", bg = "#748CAA",
     #                    font = ("texgyreadventor-regular", 20), command = self.start_over)
     #     b1.grid(row=1, column=0, pady=(30,10), sticky="")

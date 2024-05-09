@@ -25,13 +25,19 @@ class Workout1(Page):
     
     # Starts page 2.
     def make_next_page(self):
-        if self.ready_to_switch == True:
+        if self.weight_input and self.play_clicked and self.stop_clicked == True:
             self.frame.pack_forget()
             self.page_2.start_page()
-        else:
-            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+        
+        elif self.weight_input == False:
+            self.invalidEntry.set("Invalid Entry. Please input\nthe weight being lifted.")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+            
+        elif self.play_clicked or self.stop_clicked == False:
+            self.workout_not_complete.set("Workout not complete.")
+            Complete_Workout = tk.Label(self.frame3, textvariable = self.workout_not_complete, bg = "white", font = ("texgyreadventor-regular", 15))
+            Complete_Workout.grid(row=1, column=0, columnspan=2, pady=(5,0), sticky="")
     
     # # Resets app
     # def start_over(self):
@@ -64,13 +70,19 @@ class Workout2(Page):
     
     # Starts page 3.
     def make_next_page(self):
-        if self.ready_to_switch == True:
+        if self.weight_input and self.play_clicked and self.stop_clicked == True:
             self.frame.pack_forget()
             self.app.page_3.start_page()
-        else:
-            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+        
+        elif self.weight_input == False:
+            self.invalidEntry.set("Invalid Entry. Please input\nthe weight being lifted.")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+            
+        elif self.play_clicked or self.stop_clicked == False:
+            self.workout_not_complete.set("Workout not complete.")
+            Complete_Workout = tk.Label(self.frame3, textvariable = self.workout_not_complete, bg = "white", font = ("texgyreadventor-regular", 15))
+            Complete_Workout.grid(row=1, column=0, columnspan=2, pady=(5,0), sticky="")
     
     # # Resets app
     # def start_over(self):
@@ -101,13 +113,19 @@ class Workout3(Page):
     
     # Starts page 1.
     def make_next_page(self):
-        if self.ready_to_switch == True:
+        if self.weight_input and self.play_clicked and self.stop_clicked == True:
             self.frame.pack_forget()
             self.app.page_4.start_page()
-        else:
-            self.invalidEntry.set("Invalid Entry. Please input \nthe weight being lifted.")
+        
+        elif self.weight_input == False:
+            self.invalidEntry.set("Invalid Entry. Please input\nthe weight being lifted.")
             Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "white", font = ("texgyreadventor-regular", 10))
             Invalid_Entry.grid(row=1, column=0, columnspan=2, sticky="")
+            
+        elif self.play_clicked or self.stop_clicked == False:
+            self.workout_not_complete.set("Workout not complete.")
+            Complete_Workout = tk.Label(self.frame3, textvariable = self.workout_not_complete, bg = "white", font = ("texgyreadventor-regular", 15))
+            Complete_Workout.grid(row=1, column=0, columnspan=2, pady=(5,0), sticky="")
     
     # # Resets app
     # def start_over(self):
