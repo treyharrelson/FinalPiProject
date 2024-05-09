@@ -1,5 +1,5 @@
 import tkinter as tk
-from Page import Page, ResultsPage
+from Page import Page, ResultsPage, workoutReps, workoutWeights
 
 # The Workout 1 class. Root class that initializes all other pages.
 # Also displays the first page.
@@ -108,11 +108,12 @@ class WorkoutResults(ResultsPage):
     def __init__(self, master=None, app=None):
         self.master = master
         self.app = app
-        self.frame = tk.Frame(self.master, bg = "#749CBB")
-        ResultsPage.__init__(self, self.frame, self.master)
+
     
     # Starts results page
     def start_page(self):
+        self.frame = tk.Frame(self.master, bg = "#749CBB")
+        ResultsPage.__init__(self, self.frame, self.master, workoutWeights, workoutReps)
         self.frame.pack()
     
     # # Resets app

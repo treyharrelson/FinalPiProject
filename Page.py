@@ -1,6 +1,7 @@
 import tkinter as tk
 import time
-
+global workoutWeights; workoutWeights = [0, 1, 2]
+global workoutReps; workoutReps = [0, 1, 2]
 # Stopwatch class. Gives functionality to the stopwatch that is seen on pages 1-3.
 class Stopwatch:
     
@@ -43,9 +44,6 @@ class Stopwatch:
 
 # This class contains the functions for setting up GUI for pages 1-3.
 class Page(Stopwatch):
-
-    workoutWeights = [0, 1, 2]
-    workoutReps = [0, 1, 2]
     
     def __init__(self, frame, root, pageint, workout=None):
         self.frame = frame
@@ -165,21 +163,23 @@ class Page(Stopwatch):
         else:
             if (0 < int(e_text) <= 1400) and (0 < int(e_text2) <= 25):
                 self.valid_inputs = True
-                Page.workoutWeights[self.pageint - 1] = int(e_text)
-                Page.workoutReps[self.pageint - 1] = int(e_text2)
+                workoutWeights[self.pageint - 1] = int(e_text)
+                workoutReps[self.pageint - 1] = int(e_text2)
                 self.invalidEntry.set(" \n")
                 Invalid_Entry = tk.Label(self.frame2, textvariable = self.invalidEntry, bg = "#749CBB", font = ("texgyreadventor-regular", 10))
                 Invalid_Entry.grid(row=2, column=0, columnspan=2, sticky="")
         print ("")
-        print (f"Weights: {Page.workoutWeights}")
-        print (f"Reps: {Page.workoutReps}")
+        print (f"Weights: {workoutWeights}")
+        print (f"Reps: {workoutReps}")
 
 
 # This class contains the functions for setting up GUI for page 4.
 class ResultsPage:
-    def __init__(self, frame, root):
+    def __init__(self, frame, root, weights, reps):
         self.frame = frame
         self.root = root
+        self.weights = weights
+        self.reps = reps
         
         
     # Frame 1 setup.
@@ -214,20 +214,19 @@ class ResultsPage:
     # creates
     def Make_Table(self):
         
-        weight = 170
+        weight = 90
         oneRepMax = f"Your One Rep\nmax is {weight}"
         
-        repChange = "An increase in\nreps is reccomended"
+        # repChange = "An increase in\nreps is reccomended"
         repChange = "A decrease in\nreps is reccomended"
-        repChange = "No change in\nreps is reccomended"
+        # repChange = "No change in\nreps is reccomended"
         
         weightChange = "An increase in\nweight is reccomended"
-        weightChange = "A decrease in\nweight is reccomended"
-        weightChange = "No change in\nweight is reccomended"
+        # weightChange = "A decrease in\nweight is reccomended"
+        # weightChange = "No change in\nweight is reccomended"
         
-        set1, set2, set3 = 1, 2, 3
-        avgReps = round((set1 + set2 + set3)/3, 1) 
-        avgReps = f"Your average reps\nwas {avgReps}"
+        avgReps = round((sum(self.reps))/3, 1) 
+        avgRepsText = f"Your average reps\nwas {avgReps}"
         
         
 
@@ -237,7 +236,7 @@ class ResultsPage:
             ("One Rep Max", oneRepMax),
             ("Rep Change", repChange),
             ("Weight Change", weightChange),
-            ("Reps", avgReps)
+            ("Reps", avgRepsText)
             ]
 
         # find total number of rows and
