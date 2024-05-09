@@ -163,7 +163,7 @@ class Page(Stopwatch):
             Invalid_Entry.grid(row=2, column=0, columnspan=2, sticky="")
             self.weight_input = False
         else:
-            if (0 < int(e_text) <= 1400) and (0 < int(e_text2) <= 40):
+            if (0 < int(e_text) <= 1400) and (0 < int(e_text2) <= 25):
                 self.valid_inputs = True
                 Page.workoutWeights[self.pageint - 1] = int(e_text)
                 Page.workoutReps[self.pageint - 1] = int(e_text2)
