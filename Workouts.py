@@ -1,3 +1,8 @@
+#####################################################################################################
+# Authors: Trey Harrelson, Dylan Pellegrin, Colin Campbell
+# Description: This is the Main GUI and the main file to run
+#####################################################################################################
+
 import tkinter as tk
 from Page import Page, ResultsPage, workoutReps, workoutWeights
 
