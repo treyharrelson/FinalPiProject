@@ -214,9 +214,6 @@ class ResultsPage:
     # creates
     def Make_Table(self):
         
-        weight = 90
-        oneRepMax = f"Your One Rep\nmax is {weight}"
-        
         # repChange = "An increase in\nreps is reccomended"
         repChange = "A decrease in\nreps is reccomended"
         # repChange = "No change in\nreps is reccomended"
@@ -225,15 +222,26 @@ class ResultsPage:
         # weightChange = "A decrease in\nweight is reccomended"
         # weightChange = "No change in\nweight is reccomended"
         
-        avgReps = round((sum(self.reps))/3, 1) 
+        avgReps = round((sum(self.reps))/3, 1)
         avgRepsText = f"Your average reps\nwas {avgReps}"
         
+        heighestWeight = self.weights[0]
+        corresponding_rep = self.reps[0]
+        for i in range(1,len(self.weights)):
+            if self.weights[i] > self.weights[i-1]:
+                heighestWeight = self.weights[i]
+                corresponding_rep = self.reps[i]
         
-
+        # three main formula's for one rep max.  Matt Brzycki's formula,
+        # Eply's formula, and Lander's formula
+        # Lander's formula is used below
+        oneRepMax = (100*heighestWeight)/(101.3 - 2.67123 * corresponding_rep)
+        oneRepMax = int(oneRepMax)
+        oneRepMaxText = f"Your One Rep\nmax is {oneRepMax}"
         
         # take the data
         list = [
-            ("One Rep Max", oneRepMax),
+            ("One Rep Max", oneRepMaxText),
             ("Rep Change", repChange),
             ("Weight Change", weightChange),
             ("Reps", avgRepsText)
